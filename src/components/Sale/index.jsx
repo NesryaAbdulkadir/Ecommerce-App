@@ -21,7 +21,7 @@ export default function Sale({ cartItems, addToCart }) {
           {products?.images && products.images.length > 0 && (
             <img
               src={products.images[0]}
-              alt={products.title} // Added alt attribute for accessibility
+              alt={products.title}
               className="scale-50 w-[600px] h-[500px] object-cover col-span-1"
             />
           )}
@@ -40,12 +40,14 @@ export default function Sale({ cartItems, addToCart }) {
               {cartItems.some((item) => item.id === products.id) ? (
                 <p className="text-xl text-green-700">In Cart</p>
               ) : (
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2"
-                  onClick={() => addToCart(products)}
-                >
-                  Add to Cart
-                </button>
+                <>
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2"
+                    onClick={() => addToCart(products)}
+                  >
+                    Add to Cart
+                  </button>
+                </>
               )}
             </div>
           </div>

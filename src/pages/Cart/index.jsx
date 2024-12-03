@@ -64,15 +64,24 @@ export default function Cart() {
         <div className="col-span-1 flex flex-col gap-5 p-10 smax-h-max">
           <p>You have {cartItems.length} items in your cart</p>
           <h2>Total: ${getCartTotal()}</h2>
-
-          <button
-            className={`text-black shadow-md bg-white px-4 py-2 rounded-lg max-w-max${
-              cartItems?.length === 0 ? " opacity-50 cursor-not-allowed" : ""
-            }`}
-            onClick={() => clearCart()}
-          >
-            Clear Cart
-          </button>
+          <div className="flex gap-5 justify-start items-center">
+            <button
+              className={`text-black shadow-md bg-white px-4 py-2 rounded-lg max-w-max${
+                cartItems?.length === 0 ? " opacity-50 cursor-not-allowed" : ""
+              }`}
+              onClick={() => clearCart()}
+            >
+              Clear Cart
+            </button>
+            <a
+              href="/checkout"
+              className={`bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 ${
+                cartItems?.length === 0 ? " opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              Checkout
+            </a>
+          </div>
         </div>
       </div>
     </div>
