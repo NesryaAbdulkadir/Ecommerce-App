@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { CartContext } from "../../Context";
+import toast, { Toaster } from "react-hot-toast";
 
 const initialValues = {
   firstName: "",
@@ -29,13 +30,18 @@ export default function CheckoutForm() {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/cart");
+    navigate("/");
     setData(value);
     clearCart();
+    toast.success("You Successfully Placed Your Order!");
   }
 
   return (
     <div className="flex flex-col justify-start gap-2 w-6/12 mx-auto">
+      <div>
+        <Toaster />
+      </div>
+
       <h1 className="text-5xl font-bold p-8 text-center">Checkout Form</h1>
       <Formik
         initialValues={initialValues}
