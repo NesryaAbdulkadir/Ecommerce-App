@@ -23,11 +23,16 @@ const initialValues = {
 
 export default function CheckoutForm() {
   const [value, setValue] = useState({});
+  const [data, setData] = useState({});
   const [steps, setSteps] = useState(1);
   const { cartItems, clearCart, getCartTotal } = useContext(CartContext);
   const navigate = useNavigate();
 
-  console.log(value);
+  function handleClick() {
+    navigate("/cart");
+    setData(value);
+    clearCart();
+  }
 
   return (
     <div className="flex flex-col justify-start gap-2 w-6/12 mx-auto">
@@ -54,8 +59,7 @@ export default function CheckoutForm() {
         })}
         onSubmit={(values) => {
           if (values) setValue(values);
-          navigate("/cart");
-          clearCart();
+          setSteps(4);
         }}
       >
         <Form className="flex flex-col gap-4 text-xl">
@@ -117,8 +121,9 @@ export default function CheckoutForm() {
                   component="div"
                 />
               </div>
-              <div>
+              <div className="flex gap-5">
                 <button
+                  type="button"
                   className={`bg-blue-400 p-2 rounded-md ${
                     steps === 1 && "opacity-50 cursor-not-allowed"
                   }`}
@@ -126,6 +131,7 @@ export default function CheckoutForm() {
                   Prev
                 </button>
                 <button
+                  type="button"
                   className="bg-blue-400 p-2 rounded-md"
                   onClick={() => setSteps(2)}
                 >
@@ -221,14 +227,16 @@ export default function CheckoutForm() {
                 />
               </div>
 
-              <div>
+              <div className="flex gap-5">
                 <button
+                  type="button"
                   className="bg-blue-400 p-2 rounded-md"
                   onClick={() => setSteps(1)}
                 >
                   Prev
                 </button>
                 <button
+                  type="button"
                   className="bg-blue-400 p-2 rounded-md"
                   onClick={() => setSteps(3)}
                 >
@@ -295,18 +303,15 @@ export default function CheckoutForm() {
                   component="div"
                 />
               </div>
-              <div>
+              <div className="flex gap-5">
                 <button
                   className="bg-blue-400 p-2 rounded-md"
+                  type="button"
                   onClick={() => setSteps(2)}
                 >
                   Prev
                 </button>
-                <button
-                  type="submit"
-                  className="bg-blue-400 p-2 rounded-md"
-                  onClick={() => setSteps(4)}
-                >
+                <button type="submit" className="bg-blue-400 p-2 rounded-md">
                   Next
                 </button>
               </div>
@@ -338,15 +343,50 @@ export default function CheckoutForm() {
                   ))}
                 </ul>
                 <div className="flex flex-col p-5 gap-3">
-                  <h1 className="text-2xl font-bold">Order overview</h1>
-                  <h2>Total: ${getCartTotal()}</h2>
+                  <h1 className="text-3xl font-bold">Order overview</h1>
+                  <h2>
+                    <b>Total: </b>${getCartTotal()}
+                  </h2>
                   <p>Via Credit Card</p>
-                  <p>Credit Card Holder: {value.cardHolderName}</p>
-                  <h2>Shipping Address: </h2>
-                  <p>{value.city}</p>
-                  <p>{value.address}</p>
-                  <p>{value.apartmentNo}</p>
-                  <p>{value.streetAddress}</p>
+                  <p>
+                    <b>Credit Card Holder: </b>
+                    {value.cardHolderName}
+                  </p>
+                  <h2 className="text-2xl font-bold">Shipping Address: </h2>
+                  <p>
+                    <b>City: </b>
+                    {value.city}
+                  </p>
+                  <p>
+                    <b>Address: </b>
+                    {value.address}
+                  </p>
+                  {value.apartmentNo && (
+                    <p>
+                      <b>Apartment No: </b>
+                      {value.apartmentNo}
+                    </p>
+                  )}
+                  <p>
+                    <b>Street Address: </b>
+                    {value.streetAddress}
+                  </p>
+                </div>
+                <div className="flex gap-5 justify-start">
+                  <button
+                    type="button"
+                    navigate="/cart"
+                    className="shadow-md p-2 rounded-md max-w-max"
+                  >
+                    Go Back
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleClick()}
+                    className="shadow-md bg-blue-400 p-2 rounded-md max-w-max"
+                  >
+                    Place Order
+                  </button>
                 </div>
               </div>
             </>
